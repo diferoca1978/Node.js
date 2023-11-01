@@ -10,4 +10,4 @@ const characters = ['Batman', 'Superman', 'Acuaman'];
 
 const [, mansuper] = characters;
 
-console.log(mansuper);
+//console.log(mansuper);

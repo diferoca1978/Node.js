@@ -28,9 +28,18 @@ console.log({ Jhon });*/
 
 //$ Using promises with Fetch
 
-const getPokemonById = require('./js-foundations/06-promises');
+// const getPokemonById = require('./js-foundations/06-promises');
 
-getPokemonById(5)
-  .then((pokemon) => console.log({ pokemon }))
-  .catch((err) => console.log(err)) //! With this line we're manage the exeption. If we don't use this the app could crash
-  .finally(() => console.log('Finish'));
+// getPokemonById(5)
+//   .then((pokemon) => console.log({ pokemon }))
+//   .catch((err) => console.log(err)) //! With this line we're handle the exeption. If we don't use this line of code the app could crash
+//   .finally(() => console.log('Finish'));
+
+//$ Using logger
+
+const { buildLogger } = require('./plugins');
+
+const logger = buildLogger('app.js');
+
+logger.log('Hello Word');
+logger.error(' Something was wrong');
