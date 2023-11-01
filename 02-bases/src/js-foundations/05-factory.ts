@@ -1,8 +1,21 @@
 //$ Factory function
 //?Definition: A factory function is a function that create another function, and it's useful to pass our dependencies as an arguments. Now notice that we don't have any dependency here.
 
-const BuildMakePerson = ({ getUUID, getAge }) => {
-  return ({ name, birthdate }) => {
+interface BuildMakePersonOptions {
+  getUUID: () => string;
+  getAge: (birthdate: string) => number;
+}
+
+interface personOptions {
+  name: string;
+  birthdate: string;
+}
+
+export const BuildMakePerson = ({
+  getUUID,
+  getAge,
+}: BuildMakePersonOptions) => {
+  return ({ name, birthdate }: personOptions) => {
     return {
       id: getUUID(),
       name,
@@ -10,8 +23,4 @@ const BuildMakePerson = ({ getUUID, getAge }) => {
       age: getAge(birthdate),
     };
   };
-};
-
-module.exports = {
-  BuildMakePerson,
 };

@@ -20,9 +20,14 @@
 
 //$ Refactory the third party modules using them as a plugins.
 
-/*const { getAge, getUUID } = require('../plugins'); //! Now we're import the modules created for ourselves through a file called cylinder In our case (index.js)
+import { getAge, getUUID } from '../plugins'; //! Now we're import the modules created for ourselves through a file called cylinder In our case (index.js)
 
-const buildPerson = ({ name, birthdate }) => {
+interface personOptions {
+  name: string;
+  birthdate: string;
+}
+
+const buildPerson = ({ name, birthdate }: personOptions) => {
   return {
     id: getUUID(),
     name,
@@ -35,4 +40,4 @@ const obj = { name: 'Jhon', birthdate: '1978-10-30' };
 
 const Jhon = buildPerson(obj);
 
-console.log(Jhon);*/
+console.log(Jhon);

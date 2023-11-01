@@ -1,4 +1,6 @@
-const { getAge, getUUID } = require('./plugins');
+//*const { getAge, getUUID } = require('./plugins');
+
+import { buildLogger } from './plugins/logger.plugin';
 
 /* const { emailTemplate } = require('./js-foundations/01-template');
 require('./js-foundations/02-destructuring'); */
@@ -37,9 +39,7 @@ console.log({ Jhon });*/
 
 //$ Using logger
 
-const { buildLogger } = require('./plugins');
-
-const logger = buildLogger('app.js');
+/*const logger = buildLogger('app.js');
 
 logger.log('Hello Word');
-logger.error(' Something was wrong');
+logger.error(' Something was wrong');*/

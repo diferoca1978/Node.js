@@ -1,6 +1,8 @@
 /* ` This is the `winston` module in JavaScript. which is a popular logging library in JavaScript. */
-const winston = require('winston');
-const { combine, timestamp, json } = winston.format;
+
+import winston, { format } from 'winston';
+
+const { combine, timestamp, json } = format;
 
 const logger = winston.createLogger({
   level: 'info',
@@ -26,12 +28,12 @@ logger.add(
 
 //$ Adapter pattern for doesn't use winston as a hardware.
 
-module.exports = function buildLogger(service) {
+export const buildLogger = (service: string) => {
   return {
-    log: (message) => {
+    log: (message: string) => {
       logger.log('info', { message, service });
     },
-    error: (message) => {
+    error: (message: string) => {
       logger.error('error', { message, service });
     },
   };

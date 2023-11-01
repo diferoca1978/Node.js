@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 //$ Addapter pattern (wrapper) of FetchAPI with http verbs
 
@@ -16,8 +16,8 @@ const axios = require('axios');
 
 //$ Addapter pattern (wrapper) with AXIOS third party module
 
-const httpClientPlugin = {
-  get: async (url) => {
+export const httpClientPlugin = {
+  get: async (url: string) => {
     try {
       const { data } = await axios.get(url);
       return data;
@@ -25,11 +25,7 @@ const httpClientPlugin = {
       console.log({ message: `have been an error ${e} ` });
     }
   },
-  post: async (url, body) => {},
-  put: async (url, body) => {},
-  delete: async (url) => {},
-};
-
-module.exports = {
-  http: httpClientPlugin,
+  post: async (url: string, body: any) => {},
+  put: async (url: string, body: any) => {},
+  delete: async (url: string) => {},
 };
