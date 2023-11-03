@@ -1,25 +1,32 @@
 interface User {
+  id: number;
   name: string;
   age: number;
 }
 
 const users: User[] = [
   {
+    id: 1,
     name: 'Jhon Doe',
     age: 40,
   },
   {
+    id: 2,
     name: 'Janne Doe',
     age: 37,
   },
 ];
 
-export const getUserByName = (
-  name: string,
+export function getUserByName(
+  id: number,
   callback: (err?: string, user?: User) => void
-) => {
-  const user = users.find((row) => row.name == name);
-  user
-    ? callback(undefined, user)
-    : callback(`User not found with name ${name}`);
-};
+) {
+  const user = users.find((row) => row.id === id);
+  if (!user) {
+    setTimeout(() => {
+      callback(`User not found with id: ${id}`);
+    }, 2500);
+    return;
+  }
+  callback(undefined, user);
+}

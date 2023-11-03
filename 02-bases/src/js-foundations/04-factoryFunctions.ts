@@ -1,5 +1,5 @@
-//* const { v4: uuidv4 } = require('uuid');  It's a Node.js module installed through npm package. It's be able to generate an uuid ( universal unique ID).
-//* const getAge = require('get-age'); It's a Node.js module installed through npm package. It's a function that does the work of calculate an age from a born date passed as a parameter
+// const { v4: uuidv4 } = require('uuid');  It's a Node.js module installed through npm package. It's be able to generate an uuid ( universal unique ID).
+// const getAge = require('get-age'); It's a Node.js module installed through npm package. It's a function that does the work of calculate an age from a born date passed as a parameter
 
 // const buildPerson = ({ name, birthdate }) => {
 //   return {
