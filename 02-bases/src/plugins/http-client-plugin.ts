@@ -25,7 +25,13 @@ export const httpClientPlugin = {
       console.log({ message: `have been an error ${e} ` });
     }
   },
-  post: async (url: string, body: any) => {},
-  put: async (url: string, body: any) => {},
-  delete: async (url: string) => {},
+  post: async (url: string, body: any) => {
+    return new Error('Method not implemented');
+  },
+  put: async (url: string, body: any) => {
+    return new Error('Method not implemented');
+  },
+  delete: async (url: string) => {
+    return new Error('Method not implemented');
+  },
 };
