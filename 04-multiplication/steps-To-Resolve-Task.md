@@ -68,11 +68,3 @@ export class serverApp {
   }
 }
 ```
-
-4. Crear scripts para dev, build y start
-
-```
-  "dev": "nodemon",
-  "build": "rimraf ./dist && tsc",
-  "start": "npm run build && node dist/app.js"
-```
