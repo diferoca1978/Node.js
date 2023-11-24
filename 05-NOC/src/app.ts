@@ -6,5 +6,5 @@ import { Server } from './presentations/server';
 
 function main() {
   //Server.start();
-  console.log(process.env.MAILER_EMAIL);
+  console.log(process.env);
 }
