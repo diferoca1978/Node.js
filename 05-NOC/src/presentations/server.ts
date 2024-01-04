@@ -12,13 +12,13 @@ export class Server {
   public static start() {
     console.log('Server Runnig...');
 
-    CronService.createJob('*/5 * * * * *', () => {
-      const url = 'http://google.com';
-      new CheckService(
-        fileSystemLogRepository,
-        () => console.log(`${url} is OK`),
-        (error) => console.log(error)
-      ).execute(url); // Here we are tell to the cron service that check every five seconds if the call to url is ok. Through the use of method execute brought from CheckService class.
-    });
+    // CronService.createJob('*/5 * * * * *', () => {
+    //   const url = 'http://google.com';
+    //   new CheckService(
+    //     fileSystemLogRepository,
+    //     () => console.log(`${url} is OK`),
+    //     (error) => console.log(error)
+    //   ).execute(url); // Here we are tell to the cron service that check every five seconds if the call to url is ok. Through the use of method execute brought from CheckService class.
+    // });
   }
 }

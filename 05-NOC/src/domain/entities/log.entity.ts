@@ -1,27 +1,44 @@
 //* This entity is the information that we want to record onto our data base, but it doesn't our data base literally.
 
+import { SourceOrigin } from 'module';
+
 export enum LogSeverityLevel {
   low = 'low',
   medium = 'medieum',
   high = 'high',
 }
 
+export interface logEntityOptions {
+  level: LogSeverityLevel;
+  message: string;
+  createdAt?: Date;
+  origin: string;
+}
+
 export class LogEntity {
-  public level: LogSeverityLevel; //enum
+  public level: LogSeverityLevel;
   public message: string;
+  public origin: string;
   public createdAt: Date;
 
-  constructor(message: string, level: LogSeverityLevel) {
-    this.message = message, 
+  constructor(options: logEntityOptions) {
+    //* When we need to pass three or more arguments to our constructor, we can pass as an argument an object.
+    const { message, level, origin, createdAt = new Date() } = options;
+    this.message = message;
     this.level = level;
-    this.createdAt = new Date();
+    this.createdAt = createdAt;
+    this.origin = origin;
   }
 
-
-  static fromJson = (json:string): LogEntity => {
-    const {message, level, createdAt} = JSON.parse(json);
-    const log = new LogEntity(message, level);
+  static fromJson = (json: string): LogEntity => {
+    const { message, level, createdAt, origin } = JSON.parse(json);
+    const log = new LogEntity({
+      message,
+      level,
+      createdAt,
+      origin,
+    });
     log.createdAt = new Date(createdAt);
     return log;
-  }
+  };
 }
