@@ -21,3 +21,7 @@ PROD = true
 3. Run command `npm install`
 
 4. Run command `npm run dev`
+
+## Obtain Gmail key
+
+[Google Gmail Key] (https://myaccount.google.com/u/0/apppasswords)
