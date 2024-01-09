@@ -4,7 +4,7 @@
 
 version: '3.8'
 
-# Defining a list of our services thai we want to be running
+# Defining a list of our services that we want to be running
 
 services:
   mongo-db:
@@ -17,3 +17,17 @@ services:
       - ./mongo:/data/db
     ports: # Ports are the manner that we can communicate from the outside to our docker container.
       - 27017:27017
+
+  # Defining the configuration of service to connect with postgresql
+
+  postgres-db:
+    image: postgres:15.3
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432

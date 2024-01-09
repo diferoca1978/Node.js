@@ -1,3 +1,4 @@
+import { LogSeverityLevel } from '../domain/entities/log.entity';
 import { CheckService } from '../domain/use-cases/checks/check-services';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources.implementations/file-system.datasource';
@@ -14,7 +15,7 @@ const emailService = new EmailService();
 
 export class Server {
   //? The code below tell us that the method start() is public and static (if we don't need to inject a dependency), so it allow us use the start() method without need to create an instance of it self.
-  public static start() {
+  public static async start() {
     console.log('Server Runnig...');
 
     //$ Send an email
@@ -30,6 +31,9 @@ export class Server {
     //   'diferoca30101978@gmail.com',
     //   'diferoca1978@hotmail.com',
     // ]);
+
+    const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    console.log(logs);
 
     // CronService.createJob('*/10 * * * * *', () => {
     //   const url = 'http://google.comm';
