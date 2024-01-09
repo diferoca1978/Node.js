@@ -1,0 +1,19 @@
+# NOTE ¡Warning the tabulation is very important in this kind of files!
+
+# Here we are configure the docker compose.
+
+version: '3.8'
+
+# Defining a list of our services thai we want to be running
+
+services:
+  mongo-db:
+    image: mongo:7.0.4 # Image that will be use.
+    restart: always # When our docker descktop start immediately start this image
+    environment: # This environment variables also may be configure in the .env file.
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes: # This is used to record the data in the folder below, not in the image.
+      - ./mongo:/data/db
+    ports: # Ports are the manner that we can communicate from the outside to our docker container.
+      - 27017:27017

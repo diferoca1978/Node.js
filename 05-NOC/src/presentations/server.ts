@@ -1,12 +1,14 @@
 import { CheckService } from '../domain/use-cases/checks/check-services';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources.implementations/file-system.datasource';
+import { MongoLogDataSource } from '../infrastructure/datasources.implementations/mongo-log.data source';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
 import { CronService } from './cron/cron-service';
 import { EmailService } from './email/email.service';
 
-const fileSystemLogRepository = new LogRepositoryImpl(
-  new FileSystemDataSource()
+const logRepository = new LogRepositoryImpl(
+  //new FileSystemDataSource()
+  new MongoLogDataSource()
 );
 const emailService = new EmailService();
 
@@ -29,10 +31,10 @@ export class Server {
     //   'diferoca1978@hotmail.com',
     // ]);
 
-    // CronService.createJob('*/5 * * * * *', () => {
-    //   const url = 'http://google.com';
+    // CronService.createJob('*/10 * * * * *', () => {
+    //   const url = 'http://google.comm';
     //   new CheckService(
-    //     fileSystemLogRepository,
+    //     logRepository,
     //     () => console.log(`${url} is OK`),
     //     (error) => console.log(error)
     //   ).execute(url); // Here we are tell to the cron service that check every five seconds if the call to url is ok. Through the use of method execute brought from CheckService class.
