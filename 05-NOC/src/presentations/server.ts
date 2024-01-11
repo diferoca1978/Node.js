@@ -1,15 +1,18 @@
 import { LogSeverityLevel } from '../domain/entities/log.entity';
 import { CheckService } from '../domain/use-cases/checks/check-services';
+import { CheckServiceMulti } from '../domain/use-cases/checks/check-services-multi';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources.implementations/file-system.datasource';
-import { MongoLogDataSource } from '../infrastructure/datasources.implementations/mongo-log.data source';
+import { MongoLogDataSource } from '../infrastructure/datasources.implementations/mongo-log.datasource';
+import { PostgresLogDataSource } from '../infrastructure/datasources.implementations/postgreSQL-log.dataSource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
 import { CronService } from './cron/cron-service';
 import { EmailService } from './email/email.service';
 
-const logRepository = new LogRepositoryImpl(
-  //new FileSystemDataSource()
-  new MongoLogDataSource()
+const fslogRepository = new LogRepositoryImpl(new FileSystemDataSource());
+const mongologRepository = new LogRepositoryImpl(new MongoLogDataSource());
+const postgreslogRepository = new LogRepositoryImpl(
+  new PostgresLogDataSource()
 );
 const emailService = new EmailService();
 
@@ -32,16 +35,16 @@ export class Server {
     //   'diferoca1978@hotmail.com',
     // ]);
 
-    const logs = await logRepository.getLogs(LogSeverityLevel.low);
-    console.log(logs);
+    // const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    // console.log(logs);
 
-    // CronService.createJob('*/10 * * * * *', () => {
-    //   const url = 'http://google.comm';
-    //   new CheckService(
-    //     logRepository,
-    //     () => console.log(`${url} is OK`),
-    //     (error) => console.log(error)
-    //   ).execute(url); // Here we are tell to the cron service that check every five seconds if the call to url is ok. Through the use of method execute brought from CheckService class.
-    // });
+    CronService.createJob('*/10 * * * * *', () => {
+      const url = 'http://google.com';
+      new CheckServiceMulti(
+        [fslogRepository, mongologRepository, postgreslogRepository],
+        () => console.log(`${url} is OK`),
+        (error) => console.log(error)
+      ).execute(url); // Here we are tell to the cron service that check every ten seconds if the call to url is ok. Through the use of method execute brought from CheckService class. Also we use a multi check service use case to record the in three different kind of data bases (file system, mongo DB, postgreSQL DB)
+    });
   }
 }

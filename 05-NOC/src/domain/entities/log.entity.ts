@@ -4,7 +4,7 @@ import { SourceOrigin } from 'module';
 
 export enum LogSeverityLevel {
   low = 'low',
-  medium = 'medieum',
+  medium = 'medium',
   high = 'high',
 }
 
