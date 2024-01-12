@@ -16,7 +16,9 @@ The objective is to create a series of tasks using clean architecture with TypeS
 
    ```
 
-5. Run command `npm run dev`
+5. Run command `npx prisma migrate dev`
+
+6. Run command `npm run dev`
 
 ## Obtain Gmail key
 

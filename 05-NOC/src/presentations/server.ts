@@ -1,7 +1,4 @@
-import { LogSeverityLevel } from '../domain/entities/log.entity';
-import { CheckService } from '../domain/use-cases/checks/check-services';
 import { CheckServiceMulti } from '../domain/use-cases/checks/check-services-multi';
-import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { FileSystemDataSource } from '../infrastructure/datasources.implementations/file-system.datasource';
 import { MongoLogDataSource } from '../infrastructure/datasources.implementations/mongo-log.datasource';
 import { PostgresLogDataSource } from '../infrastructure/datasources.implementations/postgreSQL-log.dataSource';
