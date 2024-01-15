@@ -1,7 +1,17 @@
-(() => {
+// Entry point of our app through the auto invoke function
+
+import { envs } from './config/envs';
+import { Server } from './presentation/server';
+
+(async () => {
   main();
 })();
 
 function main() {
-  console.log('main');
+  const server = new Server({
+    port: envs.PORT,
+    public_path: envs.PUBLIC_PATH,
+  });
+
+  server.start();
 }
