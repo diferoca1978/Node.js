@@ -16,7 +16,7 @@ export class AuthController {
     return res.status(500).json({ error: 'Internal server error' });
   };
 
-  // Register method
+  //$ Register method
   register = (req: Request, res: Response) => {
     const [error, registerUserDto] = RegisterUserDto.create(req.body);
     if (error) return res.status(400).json({ error });
@@ -27,12 +27,12 @@ export class AuthController {
       .catch((error) => this.handleError(error, res));
   };
 
-  // Login method
+  //$ Login method
   login = (req: Request, res: Response) => {
     res.json('login');
   };
 
-  //validate email method
+  //$ Validate email method
   validateEmail = (req: Request, res: Response) => {
     res.json('User validateEmail');
   };
