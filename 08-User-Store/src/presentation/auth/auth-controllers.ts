@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { RegisterUserDto } from '../../domain/dtos/auth/register-user-dto';
 import { AuthService } from '../services/auth-service';
-import { CustomError, LoginUserDto } from '../../domain';
+import { CustomError, LoginUserDto, RegisterUserDto } from '../../domain';
 
 export class AuthController {
   // (DI) Here we are inject the auth-service but we don't initialize yet, it will be initialized where we need to use it (into our auth-routes.ts file), therefore this will be done into auth-routes.ts file.
@@ -38,6 +37,7 @@ export class AuthController {
       .loginUser(loginUserDto!)
       .then((user) => res.json(user))
       .catch((error) => this.handleError(error, res));
+    return;
   };
 
   // Validate email method //
@@ -46,11 +46,11 @@ export class AuthController {
     // Here we catch the token that comes from the URL
 
     const { token } = req.params;
-    res.json(token);
 
     this.authService
       .validateEmailToken(token)
-      .then(() => res.json('Email validated'))
+      .then(() => res.json('Email validated throug ngrok service'))
       .catch((error) => this.handleError(error, res));
+    return;
   };
 }

@@ -7,6 +7,7 @@ export const envs = {
   MONGO_DB_NAME: get('MONGO_DB_NAME').required().asString(),
   JWT_SEED: get('JWT_SEED').required().asString(),
 
+  SEND_MAIL: get('SEND_MAIL').default('false').asBool(),
   MAILER_SERVICE: get('MAILER_SERVICE').required().asString(),
   MAILER_EMAIL: get('MAILER_EMAIL').required().asString(),
   MAILER_SECRET_KEY: get('MAILER_SECRET_KEY').required().asString(),
