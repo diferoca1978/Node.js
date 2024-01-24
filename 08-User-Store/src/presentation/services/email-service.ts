@@ -1,9 +1,4 @@
-//! Note: When the import returns an error try to follow the indications given to vsCode.
-
-import nodemailer from 'nodemailer';
-import { envs } from '../../config/envs.plugin';
-import { privateDecrypt } from 'crypto';
-import { LogEntity, LogSeverityLevel } from '../../domain/entities/log.entity';
+import nodemailer, { Transporter } from 'nodemailer';
 
 export interface SendMailOptions {
   to: string | string[];
@@ -18,15 +13,21 @@ export interface Attachment {
 }
 
 export class EmailService {
-  private transporter = nodemailer.createTransport({
-    service: envs.MAILER_SERVICE,
-    auth: {
-      user: envs.MAILER_EMAIL,
-      pass: envs.MAILER_SECRET_KEY,
-    },
-  });
+  private transporter: Transporter;
 
-  constructor() {}
+  constructor(
+    mailerService: string,
+    mailerEmail: string,
+    senderEmailPassword: string
+  ) {
+    this.transporter = nodemailer.createTransport({
+      service: mailerService,
+      auth: {
+        user: mailerEmail,
+        pass: senderEmailPassword,
+      },
+    });
+  }
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
     const { to, subject, htmlBody, attachments = [] } = options;
@@ -38,10 +39,11 @@ export class EmailService {
         html: htmlBody,
         attachments: attachments,
       });
-      //console.log(sentInformation)
+      //console.log(sentInformation);
 
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
