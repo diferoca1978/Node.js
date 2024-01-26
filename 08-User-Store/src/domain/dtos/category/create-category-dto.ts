@@ -1,16 +1,16 @@
 export class CreateCategoryDto {
   private constructor(
-    public readonly Name: string,
+    public readonly name: string,
     public readonly available: boolean
   ) {}
 
   static create(object: { [key: string]: any }): [string?, CreateCategoryDto?] {
-    const { name, available } = object;
+    const { name, available = false } = object;
     let availableBoolean = available;
 
     if (!name) return ['Missing name'];
     if (typeof available !== 'boolean') {
-      availableBoolean === 'true';
+      availableBoolean = available === 'true';
     }
 
     return [undefined, new CreateCategoryDto(name, availableBoolean)];

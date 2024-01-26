@@ -14,11 +14,11 @@ export class jwtGenerator {
     });
   }
 
-  static validateTk(token: string) {
+  static validateTk<T>(token: string): Promise<T | null> {
     return new Promise((resolve) => {
       jwt.verify(token, JWT_SEED, (err, decoded) => {
         if (err) return resolve(null);
-        resolve(decoded);
+        resolve(decoded as T);
       });
     });
   }
