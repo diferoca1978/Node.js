@@ -1,0 +1,55 @@
+import { productModel } from '../../data';
+import { CreateProductDto, CustomError, PaginationDto } from '../../domain';
+
+export class ProductService {
+  constructor() {}
+
+  // Create Product
+
+  async createProduct(createProductDto: CreateProductDto) {
+    const productExists = await productModel.findOne({
+      name: createProductDto.name,
+    });
+    if (productExists) throw CustomError.badRequest('Product already exists');
+
+    try {
+      const product = new productModel(createProductDto); // Into createProductDto already comes the user and the category.
+
+      await product.save();
+
+      return product;
+    } catch (error) {
+      throw CustomError.internalServer(`${error}`);
+    }
+  }
+
+  // Get products
+
+  async getProducts(paginationDto: PaginationDto) {
+    const { page, limit } = paginationDto;
+    try {
+      const [total, products] = await Promise.all([
+        productModel.countDocuments(),
+        productModel
+          .find()
+          .skip((page - 1) * limit)
+          .limit(limit),
+
+        // TODO: populate
+      ]);
+
+      return {
+        page: page,
+        limit: limit,
+        total: total,
+        next: `/api/products?page=${page + 1}&limit=${limit}`,
+        prev:
+          page - 1 > 0 ? `/api/products?page=${page - 1}&limit=${limit}` : null,
+
+        products: products,
+      };
+    } catch (error) {
+      throw CustomError.internalServer('internal server error');
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import { Response, Request } from 'express';
-import { CreateCategoryDto, CustomError } from '../../domain';
+import { CreateCategoryDto, CustomError, PaginationDto } from '../../domain';
 import { CategoryService } from '../services/category-service';
-import { CategoryModel } from '../../data';
 
 export class CategoryController {
   //DI
@@ -11,8 +10,8 @@ export class CategoryController {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message });
     }
-    console.log(`${error}`);
 
+    console.log(`${error}`);
     return res.status(500).json({ error: 'Internal server error' });
   };
 
@@ -20,9 +19,7 @@ export class CategoryController {
 
   createCategory = (req: Request, res: Response) => {
     const [error, createCategoryDto] = CreateCategoryDto.create(req.body);
-    if (error) return res.status(400).json(`${error}`);
-
-    res.json(createCategoryDto);
+    if (error) return res.status(400).json({ error });
 
     this.categoryService
       .createCategory(createCategoryDto!, req.body.user)
@@ -32,9 +29,14 @@ export class CategoryController {
 
   // Get categories
 
-  getcategories = async (req: Request, res: Response) => {
+  getcategories = (req: Request, res: Response) => {
+    const { page = 1, limit = 10 } = req.query;
+    const [error, paginationDto] = PaginationDto.create(+page, +limit); // Here we're have a problen due to the page and the limit can comes as a strings, so we need transform both through the use plus symbol before each property.
+
+    if (error) return res.status(400).json({ error });
+
     this.categoryService
-      .getCategories()
+      .getCategories(paginationDto!)
       .then((categories) => res.json(categories))
       .catch((error) => this.handleError(error, res));
   };

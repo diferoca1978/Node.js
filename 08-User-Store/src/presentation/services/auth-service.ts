@@ -37,9 +37,9 @@ export class AuthService {
 
       await this.sendEmailValidationLink(user.email);
 
-      // To save the user to the DB without the password and adding the token.
+      // To save the user into the DB without the password and adding the token.
 
-      const { password, ...rest } = UserEntity.fromObject(user);
+      const { password, ...userEntity } = UserEntity.fromObject(user);
 
       // to generate a JWT to authenticate the user.
 
@@ -50,7 +50,7 @@ export class AuthService {
         throw CustomError.internalServer('Errror in generation of token');
 
       return {
-        user: rest,
+        user: userEntity,
         token: token,
       };
     } catch (error) {
@@ -76,7 +76,7 @@ export class AuthService {
       throw CustomError.badRequest('Invalid credentials');
     }
 
-    const { password, ...rest } = UserEntity.fromObject(user);
+    const { password, ...userEntity } = UserEntity.fromObject(user);
 
     const token = await jwtGenerator.generateTk({
       id: user.id,
@@ -86,7 +86,7 @@ export class AuthService {
       throw CustomError.internalServer('Errror in generation of token');
 
     return {
-      user: rest,
+      user: userEntity,
       token: token,
     };
   }

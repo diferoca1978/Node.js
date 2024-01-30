@@ -37,7 +37,6 @@ export class AuthController {
       .loginUser(loginUserDto!)
       .then((user) => res.json(user))
       .catch((error) => this.handleError(error, res));
-    return;
   };
 
   // Validate email method //
@@ -51,6 +50,5 @@ export class AuthController {
       .validateEmailToken(token)
       .then(() => res.json('Email validated throug ngrok service'))
       .catch((error) => this.handleError(error, res));
-    return;
   };
 }

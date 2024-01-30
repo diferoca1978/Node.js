@@ -20,6 +20,8 @@ export class AuthMiddleware {
       const user = await UserModel.findById(payload.id);
       if (!user) return res.status(401).json({ error: 'Invalid token - user' });
 
+      // Todo: validate if the user is active.
+
       req.body.user = UserEntity.fromObject(user);
 
       next();
@@ -27,7 +29,5 @@ export class AuthMiddleware {
       console.log(error);
       res.status(500).json({ error: 'internal server error' });
     }
-
-    return next();
   }
 }
