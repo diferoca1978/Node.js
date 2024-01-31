@@ -33,9 +33,9 @@ export class ProductService {
         productModel
           .find()
           .skip((page - 1) * limit)
-          .limit(limit),
-
-        // TODO: populate
+          .limit(limit)
+          .populate('user', 'name email') // This method of mongoose is used to populate a relation with te data that we want to comes.
+          .populate('category', 'name available'),
       ]);
 
       return {

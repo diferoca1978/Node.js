@@ -19,4 +19,8 @@ export class MongoDB {
       throw error;
     }
   }
+
+  static async disconnect() {
+    await mongoose.disconnect();
+  }
 }
