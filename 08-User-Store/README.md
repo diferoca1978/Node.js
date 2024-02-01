@@ -15,4 +15,4 @@ Each step of his configuration had realized previously, therefore only is necess
 ## Deploy test
 
 1. Through using ngrok (https://ngrok.com/)
-2. Through using vscode ports
+2. Through using vscode ports.
