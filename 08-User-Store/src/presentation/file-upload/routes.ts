@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { FileUploadController } from './controller';
 import { FileUploadService } from '../services/file-upload-service';
-import { FileUploadMiddleware } from '../middlewares/File-upload-middleware';
+import { FileUploadMiddleware, TypeMiddleware } from '../middlewares';
 
 export class FileUploadRoutes {
   static get routes(): Router {
@@ -12,6 +12,7 @@ export class FileUploadRoutes {
     // Middleware: this will run on the two routes below without to need set it between the path and the controller.
 
     router.use(FileUploadMiddleware.containFiles);
+    router.use(TypeMiddleware.validTypes(['users', 'categories', 'products']));
 
     // Defining routes
     router.post('/single/:type', controller.uploadFile);
